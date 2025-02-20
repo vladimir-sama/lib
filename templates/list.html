@@ -1,0 +1,51 @@
+{% extends 'parent.html' %}
+{% block title %}Lib List{% endblock %}
+{% block content_body %}
+    <h1>Find</h1>
+    <p>
+        <a href='/'>Home</a> / <a href='/list'>Refresh</a>
+    </p>
+    <form action='/list' method='POST' enctype='multipart/form-data'>
+        <p>
+            Sort:
+            &nbsp;
+            &nbsp;
+            <input type='radio' name='sort_option', value='last_modified' id='radio_modified' checked>
+            <label for='radio_modified'>Last Modified</label>
+            <input type='radio' name='sort_option', value='time_added' id='radio_added'>
+            <label for='radio_added'>Time Added</label>
+        </p>
+        <p>
+            Filter:
+            &nbsp;
+            &nbsp;
+            <input type='radio' name='search_option', value='title' id='radio_title' checked>
+            <label for='radio_title'>Title</label>
+            <input type='radio' name='search_option', value='authors' id='radio_authors'>
+            <label for='radio_authors'>Author</label>
+            <input type='radio' name='search_option', value='collection' id='radio_collection'>
+            <label for='radio_collection'>Collection</label>
+            <input type='radio' name='search_option', value='language' id='radio_language'>
+            <label for='radio_language'>Language</label>
+        </p>
+        <p>
+            <input type='text' maxlength='100' style='width: 60%;' name='search_query' placeholder='(Search)' required>
+            <button type='submit' style='width: 15%;'>Search</button>
+        </p>
+    </form>
+    <br>
+    {% if search_query %}
+        <p>Searched for ( {{ search_query }} ) with filter ( {{ search_filter }} ) and order ( {{ search_sort }} )</p>
+    {% endif %}
+    {% for item in results %}
+        <p>
+            {{ item[1] }} -
+            {{ ' & '.join( item[2].split(',') ) }} -
+            <a href='/edit/{{ item[0] }}'>
+                <button type='button' style='width: 15%;'>Edit</button>
+            </a>
+        </p>
+    {% else %}
+        <p>No results</p>
+    {% endfor %}
+{% endblock %}

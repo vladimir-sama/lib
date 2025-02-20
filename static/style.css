@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Roboto Light';
+    src: url('roboto_light.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Roboto Light';
+    color: black;
+    text-align: center;
+    background-color: whitesmoke;
+    width: 100%;
+}
+
+h1 {
+    font-style: italic;
+}
+
+input {
+    font-family: 'Roboto Light';
+}
+
+textarea {
+    font-family: 'Roboto Light';
+}
+
+button {
+    font-family: 'Roboto Light';
+    font-size: medium;
+    margin: 1ch;
+}
+

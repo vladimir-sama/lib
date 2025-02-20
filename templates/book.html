@@ -1,0 +1,79 @@
+{% extends 'parent.html' %}
+{% block title %}
+    {% if page_action == '/add' %}
+        Add Book
+    {% elif page_action == '/edit' %}
+        View Book
+    {% else %}
+        Book
+    {% endif %}
+{% endblock %}
+{% block content_body %}
+    <h1>
+        {% if page_action == '/add' %}
+            Add Book
+        {% elif page_action.startswith('/edit') %}
+            View Book {{ value_title }}
+        {% else %}
+            Book
+        {% endif %}
+    </h1>
+    {% if page_action.startswith('/edit') %}
+        <p>Added on {{ time_added_formatted }}</p>
+        <p>Last modified on {{ last_modified_formatted }}</p>
+    {% endif %}
+    <form action='{{ page_action }}' method='POST' enctype='multipart/form-data'>
+        <p>
+            <input type='text' maxlength='30' style='width: 40%;' name='isbn_11' placeholder='(ISBN 11)' value='{{ value_isbn_11 }}'>
+            <input type='text' maxlength='30' style='width: 40%;' name='isbn_13' placeholder='(ISBN 13)' value='{{ value_isbn_13 }}'>
+        </p>
+        <p>
+            <input type='text' maxlength='100' style='width: 30%;' name='title' placeholder='(Title)' value='{{ value_title }}' required>
+            <input type='text' maxlength='100' style='width: 30%;' name='edition' placeholder='(Edition)' value='{{ value_edition }}'>
+            <input type='text' maxlength='100' style='width: 20%;' name='collection' placeholder='(Collection)' value='{{ value_collection }}'>
+        </p>
+        <p>
+            <input type='text' maxlength='100' style='width: 35%;' name='authors' placeholder='(Authors)' value='{{ value_authors }}'>
+            <input type='text' maxlength='100' style='width: 35%;' name='editor' placeholder='(Editor)' value='{{ value_editor }}'>
+            <input type='number' style='width: 10%;' name='year' placeholder='(Year)' value='{{ value_year }}'>
+        </p>
+        <p>
+            <input type='number' style='width: 40%;' name='extension' placeholder='(Extension)' value='{{ value_extension }}'>
+            <input type='text' maxlength='100' style='width: 40%;' name='language' placeholder='(Language)' value='{{ value_language }}' required>
+        </p>
+        <p>
+            <input type='text' maxlength='100' style='width: 40%;' name='location' placeholder='(Location)' value='{{ value_location }}'>
+            <input type='text' maxlength='100' style='width: 40%;' name='position' placeholder='(Position)' value='{{ value_position }}'>
+        </p>
+        <p>
+            <textarea maxlength='1000' style='width: 40%; height: 10%;' placeholder='(Tags)' name='tags'>{{ value_tags }}</textarea>
+            <textarea maxlength='1000' style='width: 40%; height: 10%;' placeholder='(Physical Characteristics)' name='characteristics'>{{ value_characteristics }}</textarea>
+        </p>
+        <p>
+            <textarea maxlength='1000' style='width: 40%; height: 10%;' placeholder='(Classification)' name='classification'>{{ value_classification }}</textarea>
+            <textarea maxlength='1000' style='width: 40%; height: 10%;' placeholder='(Notes)' name='notes'>{{ value_notes }}</textarea>
+        </p>
+        
+        <p>{{ message_add }}</p>
+        <p>
+            <a href='/'>
+                <button type='button' style='width: 15%;'>Home</button>
+            </a>
+            <a href='/list'>
+                <button type='button' style='width: 15%;'>List</button>
+            </a>
+            <button type='submit' style='width: 15%;'>
+                {% if page_action == '/add' %}
+                    Add
+                {% else %}
+                    Edit
+                {% endif %}
+            </button>
+            {% if page_action.startswith('/edit') %}
+                <a href='/edit/{{ code }}/delete'>
+                    <button type='button' style='width: 15%;'>Delete</button>
+                </a>
+            {% endif %}
+        </p>
+    </form>
+{% endblock %}
